@@ -6,7 +6,36 @@ namespace MyCalculator
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            while (true)
+            {
+                try
+                {
+                    double Result = 0;
+
+                    ICalculator calculator = new Calculator();
+
+                    Console.WriteLine("Введите первое число: ");
+                    double Num1 = calculator.ReadNum();
+
+                    Console.WriteLine("Введите второе число: ");
+                    double Num2 = calculator.ReadNum();
+
+                    Result = calculator.Sum(Num1, Num2);
+
+                    calculator.Calculate(Result);
+                }
+
+                catch (FormatException)
+                {
+                    Console.WriteLine("Некорректный ввод! Повторите попытку.");
+                }
+
+                catch (OverflowException)
+                {
+                    Console.WriteLine("Число за пределами допустимого значения! Повторите попытку.");
+                }
+
+            }
         }
     }
 
@@ -31,9 +60,9 @@ namespace MyCalculator
             return Convert.ToDouble(Console.ReadLine());
         }
 
-        void ICalculator.Calculate(double result)
+        void ICalculator.Calculate(double Result)
         {
-            Console.WriteLine($"Ваш результат: {result}");
+            Console.WriteLine($"Ваш результат: {Result}");
         }
     }
 }
